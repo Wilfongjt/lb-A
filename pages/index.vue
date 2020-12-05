@@ -6,7 +6,7 @@
         lb-a
       </h1>
       <h2 class="title">
-        CI
+        CI again
       </h2>
       <div class="links">
         <a
