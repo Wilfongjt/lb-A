@@ -5,6 +5,9 @@
       <h1 class="title">
         lb-a
       </h1>
+      <h2 class="title">
+        CI
+      </h2>
       <div class="links">
         <a
           href="https://nuxtjs.org/"
