@@ -5,19 +5,24 @@ single nuxtjs app
 
 ```mermaid
 flowchart TB
+    classDef service fill:#fff;
+    CommunityService:::service
+    LocationService:::service
     
     subgraph Init
-      direction TB
+      direction LR
       a1-->a2
     end
     
     subgraph Load
-      direction TB
-      b1-->b2
+      
+      LocationService --> |"[(dr_jurisdiction,count,lat,lon),...]"| b
     end
     
     subgraph Show
       direction TB
+      CommunityService --> |"[(dr_jurisdiction,count,lat,lon),...]"| c
+
       c1-->c2
     end
     
@@ -34,11 +39,8 @@ flowchart TB
 
 classDef service fill:#fff;
 BB:::service
-classDef service fill:#fff; 
 CC:::service
-classDef service fill:#fff; 
 DD:::service
-classDef service fill:#fff; 
 
 A(taskA) --> |xxx| B(taskB)
 B(taskB) --> |bbb| C(taskC)
