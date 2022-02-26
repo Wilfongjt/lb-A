@@ -7,14 +7,18 @@ single nuxtjs app
 flowchart TB
     
     subgraph Init
+      direction TB
     a1-->a2
     end
+    
     subgraph Load
     b1-->b2
     end
+    
     subgraph Show
     c1-->c2
     end
+    
     Init --> |"(abc)"| Load
     Load --> |"[(ABC),...]"| Show
     
