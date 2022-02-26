@@ -3,11 +3,14 @@ single nuxtjs app
 
 ```mermaid
 stateDiagram
-    [*] --> Still
-    Still --> [*]
-
-    Still --> Moving
+    [*] --> Init
+    [*] --> Mount
+    Init --> [*]
+    Mount --> [*]
+    
+    
+```
+Still --> Moving
     Moving --> Still
     Moving --> Crash
     Crash --> [*]
-```
