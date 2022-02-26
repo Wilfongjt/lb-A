@@ -11,17 +11,17 @@ flowchart TB
     
     subgraph Init
       direction LR
+      LocationService --> |"[(dr_jurisdiction,count,lat,lon),...]"| b
       a1-->a2
     end
     
     subgraph Load
-      
-      LocationService --> |"[(dr_jurisdiction,count,lat,lon),...]"| b
+      CommunityService --> |"[(dr_jurisdiction,count,lat,lon),...]"| c
+            
     end
     
     subgraph Show
       direction TB
-      CommunityService --> |"[(dr_jurisdiction,count,lat,lon),...]"| c
 
       c1-->c2
     end
