@@ -15,8 +15,8 @@ flowchart TB
     subgraph Show
     c1-->c2
     end
-    Init --> Load
-    Load --> Show
+    Init --> |"(abc)"| Load
+    Load --> |"[(ABC),...]"| Show
     
     
 ```
