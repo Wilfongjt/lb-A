@@ -1,65 +1,36 @@
 # lb-a
 single nuxtjs app
 
-
+## Communities
 
 ```mermaid
 flowchart TB
     classDef service fill:#fff;
-    CommunityService:::service
-    LocationService:::service
     
-    subgraph Init
-      direction LR
-      LocationService --> |"[(dr_jurisdiction,count,lat,lon),...]"| b
-      a1-->a2
+    Guest
+    
+    Init --> Load
+    Load --> Show
+
+    CommunityGetRequest:::service
+    
+    subgraph Start
+      CommunityConfig --> |"(title:a,subtitle:b)"| configHandler    
     end
     
-    subgraph Load
-      CommunityService --> |"[(dr_jurisdiction,count,lat,lon),...]"| c
-            
-    end
-    
-    subgraph Show
+    subgraph Mount
       direction TB
-
-      c1-->c2
+     
+      CommunityGetRequest --> |"[(dr_jurisdiction,count,lat,lon),...]"| CommunityGetHandler
     end
     
-    Init --> |"(abc)"| Load
-    Load --> |"[(ABC),...]"| Show
+    subgraph Display
+      direction TB
+    end
     
-    
+
+    Start --> Mount
+    Mount --> |"[(community),...]"| Display
+
 ```
 
-
-```mermaid
-flowchart TB
-
-
-classDef service fill:#fff;
-BB:::service
-CC:::service
-DD:::service
-
-A(taskA) --> |xxx| B(taskB)
-B(taskB) --> |bbb| C(taskC)
-C(taskC) --> |ccc| D(taskD)
-C(taskC) --> |bbb| DD[Service]
-
-BB[ServiceB] --> |"(bbb)"| B
-CC[ServiceC] --> |"[(ccc)]"| C
-DD[ServiceD] --> |"[(ddd)]"| CC
-```
-
-```mermaid
-stateDiagram
-    [*] --> Communities: (click)
-     
-    Communities(ccc) --> Community_Service: mount
-    
-    Community_Service --> Show: [(dr_jurisdiction, count,lat,lon),...]
-    Community_Service --> [*]: (empty)
-
-    Show --> [*]
-```
