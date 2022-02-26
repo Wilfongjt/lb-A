@@ -8,15 +8,17 @@ flowchart TB
     
     subgraph Init
       direction TB
-    a1-->a2
+      a1-->a2
     end
     
     subgraph Load
-    b1-->b2
+      direction TB
+      b1-->b2
     end
     
     subgraph Show
-    c1-->c2
+      direction TB
+      c1-->c2
     end
     
     Init --> |"(abc)"| Load
