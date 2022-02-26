@@ -1,6 +1,49 @@
 # lb-a
 single nuxtjs app
 
+
+
+```mermaid
+flowchart TB
+    
+    subgraph Init
+    a1-->a2
+    end
+    subgraph Load
+    b1-->b2
+    end
+    subgraph Show
+    c1-->c2
+    end
+    Init --> Load
+    Load --> Show
+    
+    
+```
+
+
+```mermaid
+flowchart TB
+
+
+classDef service fill:#fff;
+BB:::service
+classDef service fill:#fff; 
+CC:::service
+classDef service fill:#fff; 
+DD:::service
+classDef service fill:#fff; 
+
+A(taskA) --> |xxx| B(taskB)
+B(taskB) --> |bbb| C(taskC)
+C(taskC) --> |ccc| D(taskD)
+C(taskC) --> |bbb| DD[Service]
+
+BB[ServiceB] --> |"(bbb)"| B
+CC[ServiceC] --> |"[(ccc)]"| C
+DD[ServiceD] --> |"[(ddd)]"| CC
+```
+
 ```mermaid
 stateDiagram
     [*] --> Communities: (click)
@@ -12,17 +55,3 @@ stateDiagram
 
     Show --> [*]
 ```
-
-```mermaid
-flowchart TB
-classDef service fill:#f96;
-B(Task)
-direction LR
-B(task1) <-.- |xxx| A:::service[Service] 
-B(task1)  --> |bbb| C(task2)
-
-```
-Still --> Moving
-    Moving --> Still
-    Moving --> Crash
-    Crash --> [*]
