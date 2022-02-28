@@ -6,7 +6,7 @@ single nuxtjs app
 ```mermaid
 flowchart TB
     classDef service fill:#fff;
-    Init --> Load
+    Init[Init] --> Load
     Load --> End
     * --> Open
     Open --> =
@@ -20,21 +20,16 @@ flowchart TB
     Load --> Show
 
     CommunityGetRequest:::service
-    subgraph Open2
+    
+      subgraph Load1
         direction LR
-        A1 --> A2        
-    end
+        A1 --> |"(name)"| A2
+        A3 --> |"(name)"| A4        
+      end
       
-    subgraph Open
-      direction LR
-      CommunityConfig --> |"(config:(title,subtitle))"| configHandler         
-      CommunityGetRequest --> |"[(community:(dr_jurisdiction,count,lat,lon)),...]"| CommunityGetHandler
-    end
-    
-    
-    * --> Open
-    Open --> |"(config),[(community),...]"| Display
-    Display --> =
+    * --> Load1
+    Load1 --> |"(config),[(community),...]"| Show1
+    Show1 --> =
 
 ```
 
