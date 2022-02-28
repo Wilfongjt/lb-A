@@ -6,31 +6,35 @@ single nuxtjs app
 ```mermaid
 flowchart TB
     classDef service fill:#fff;
-    
-    Guest
+    Init --> Load
+    Load --> End
+    * --> Open
+    Open --> =
+```
+
+```mermaid
+flowchart TB
+    classDef service fill:#fff;
     
     Init --> Load
     Load --> Show
 
     CommunityGetRequest:::service
-    
-    subgraph Start
-      CommunityConfig --> |"(title:a,subtitle:b)"| configHandler    
+    subgraph Open2
+        direction LR
+        A1 --> A2        
+    end
+      
+    subgraph Open
+      direction LR
+      CommunityConfig --> |"(config:(title,subtitle))"| configHandler         
+      CommunityGetRequest --> |"[(community:(dr_jurisdiction,count,lat,lon)),...]"| CommunityGetHandler
     end
     
-    subgraph Mount
-      direction TB
-     
-      CommunityGetRequest --> |"[(dr_jurisdiction,count,lat,lon),...]"| CommunityGetHandler
-    end
     
-    subgraph Display
-      direction TB
-    end
-    
-
-    Start --> Mount
-    Mount --> |"[(community),...]"| Display
+    * --> Open
+    Open --> |"(config),[(community),...]"| Display
+    Display --> =
 
 ```
 
