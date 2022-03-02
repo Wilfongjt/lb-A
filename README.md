@@ -4,7 +4,7 @@ single nuxtjs app
 ## Communities
 
 ```mermaid
- flowchart TB
+flowchart TB
        
           classDef service fill:#fff;
        
@@ -17,12 +17,12 @@ single nuxtjs app
               subgraph Load1
                   direction LR
                   A --> B
-                  
               end
           
               subgraph Show1
                   direction LR
                   C --> D
+                  E --> F
               end
        
               Start --> Load
