@@ -5,34 +5,40 @@ single nuxtjs app
 
 ```mermaid
 flowchart TB
-       
-          classDef service fill:#fff;
-       
+ 
+    classDef service fill:#fff;
+ 
+    
+        subgraph *
+          direction LR
+        end
+    
+        subgraph Config1
+          direction LR
+          CommunityConfig --> Nothing -->  CommunityConfigHandler --> Nothing
+    
+        end
+    
+        subgraph  Load1
+          direction LR
           
-              subgraph *
-                  direction LR
-                  
-              end
+    
+        end
+    
+        subgraph  Show1
+          direction LR
           
-              subgraph Load1
-                  direction LR
-                  A --> B
-              end
-          
-              subgraph Show1
-                  direction LR
-                  C --> D
-                  E --> F
-              end
-       
-              Start --> Load
-              Load --> Show
-              Show --> End
-       
-              * --> Load1
-              Load1 --> Show1
-              Show1 --> =
-     
+    
+        end
+ 
+         Community -->  Load
+         Load -->  Show
+         Show --> End
+ 
+        * -->  Load1
+         Load1 -->  Show1
+         Show1 --> =
+
 ```
 
 ```mermaid
