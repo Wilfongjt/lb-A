@@ -31,7 +31,8 @@ flowchart TB
     
         end
  
-         Community -->  Load
+         Community -->  Config
+         Config --> Load
          Load -->  Show
          Show --> End
  
