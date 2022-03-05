@@ -2,6 +2,33 @@
 single nuxtjs app
 
 ## Communities
+```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+      stateDiagram
+      
+        Community.vue --> Config : (community.json)
+        Config --> Load : (community)
+        Load --> Show : (communityList)
+        Show --> End : (html)
+        
+        state Config1 {
+            [*] --> communityConfig : (community.json)
+            communityConfig --> communityConfigHandler
+            
+        }
+        
+        state Load1 {
+          A --> B
+          B --> A
+        }
+        
+        [*] --> Config1  : (community.json)
+        Config1 --> Load1
+        Load1 --> Show1
+        Show1 --> [*]
+        
+```
+
 
 ```mermaid
 flowchart TB
@@ -11,34 +38,33 @@ flowchart TB
     
         subgraph *
           direction LR
+          
         end
     
         subgraph Config1
           direction LR
-          CommunityConfig --> Nothing -->  CommunityConfigHandler --> Nothing
-    
+              CommunityConfig[CommunityConfig] --> CommunityConfigHandler[CommunityConfigHandler]
         end
     
-        subgraph  Load1
+        subgraph Load1
           direction LR
-          
-    
+              Community[Community] --> |"[(name,count,lat,lon),...]"| CommunityGETHandler[CommunityGETHandler]
         end
     
-        subgraph  Show1
+        subgraph Show1
           direction LR
-          
-    
+              Click_Community[Click Community] --> Go_To_Community_Map[Go To Community Map]
         end
  
-         Community -->  Config
-         Config --> Load
-         Load -->  Show
-         Show --> End
+        Community --> Config
+        Config --> Load
+        Load --> Show
+        Show --> End
  
-        * -->  Load1
-         Load1 -->  Show1
-         Show1 --> =
+        * --> Config1
+        Config1 --> Load1
+        Load1 --> Show1
+        Show1 --> =
 
 ```
 
