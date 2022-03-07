@@ -4,28 +4,68 @@ single nuxtjs app
 ## Communities
 ```mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+ 
+
+ 
+    
+        state Config1 {
+          direction LR
+            [*] --> CommunityConfig
+        CommunityConfig --> CommunityConfigHandler : (title,subtitle,services)
+        }
+        state Load1 {
+            [*] --> CommunityGet
+        CommunityGet --> CommunityGetHandler : [(name,count,lat,lon),...]
+        }
+    
+ 
+        Community --> Config
+        Config --> Load
+        Load --> Show
+        Show --> End
+ 
+        [*] --> Config1
+        Config1 --> Load1
+        Load1 --> Show1
+        Show1 --> [*]
+```
+
+```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
       stateDiagram
-      
+
         Community.vue --> Config : (community.json)
         Config --> Load : (community)
         Load --> Show : (communityList)
         Show --> End : (html)
         
+        
         state Config1 {
-            [*] --> communityConfig : (community.json)
-            communityConfig --> communityConfigHandler
-            
+            [*] --> CommunityConfig
+            CommunityConfig --> CommunityConfigHandler : (title,subtitle,services)
         }
         
         state Load1 {
+          [*] --> acommunityGET
+          acommunityGET --> bcommunityGETHandler : [(name,count,lat,lon),...]
+          bcommunityGETHandler --> ccommunityGET
+          --
+          [*] --> communityGET
+          communityGET --> communityGETHandler : [(name,count,lat,lon),...]
+          communityGETHandler --> xcommunityGET
+          xcommunityGET --> xcommunityGETHandler : [(name,count,lat,lon),...]
+          xcommunityGETHandler
+          --
+          [*] --> A
           A --> B
-          B --> A
+
         }
         
         [*] --> Config1  : (community.json)
         Config1 --> Load1
-        Load1 --> Show1
-        Show1 --> [*]
+        Load1 --> Show1 : (communityList)
+        Show1 --> [*] : (html)
         
 ```
 
