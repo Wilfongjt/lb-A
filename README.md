@@ -28,7 +28,7 @@ stateDiagram
         Config --> Load 
         Load --> Show 
         Show --> End 
- --
+ 
         [*] --> Config1
         Config1 --> Load1
         Load1 --> Show1
