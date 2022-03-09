@@ -10,21 +10,25 @@ stateDiagram
  
     
         state Config1 {
-          direction LR
             [*] --> CommunityConfig
-        CommunityConfig --> CommunityConfigHandler : (title,subtitle,services)
+    CommunityConfig --> CommunityConfigHandler : (title,subtitle,services)
+        
+    --
+
+
+        AConfig --> AConfigHandler : (title,subtitle,services)
         }
         state Load1 {
             [*] --> CommunityGet
-        CommunityGet --> CommunityGetHandler : [(name,count,lat,lon),...]
+    CommunityGet --> CommunityGetHandler : [(name,count,lat,lon),...]
         }
     
  
-        Community --> Config
-        Config --> Load
-        Load --> Show
-        Show --> End
- 
+        Community --> Config : communities.json
+        Config --> Load 
+        Load --> Show 
+        Show --> End 
+ --
         [*] --> Config1
         Config1 --> Load1
         Load1 --> Show1
