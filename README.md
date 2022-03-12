@@ -28,8 +28,8 @@ stateDiagram
     [*] --> Config1 : adopter.json
     Config1 --> LoadGuest1 
     Config1 --> LoadUser1
-    LoadGuest1 --> [*] : guestToken
-    LoadUser1 --> [*] : userToken
+    LoadGuest1 --> [ShowA] : guestToken
+    LoadUser1 --> [ShowB] : userToken
 ```
 
 ```mermaid
