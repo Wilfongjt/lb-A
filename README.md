@@ -26,8 +26,10 @@ stateDiagram
     Load --> End : owner,id
  
     [*] --> Config1 : adopter.json
-    Config1 --> Load1 : (title,subtitle,displayname,username,password,services)
-    Load1 --> [*] : token
+    Config1 --> LoadGuest1 
+    Config1 --> LoadUser1
+    LoadGuest1 --> [*] : guestToken
+    LoadUser1 --> [*] : userToken
 ```
 
 ```mermaid
