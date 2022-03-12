@@ -9,30 +9,25 @@ stateDiagram
 
  
     
-        state Config1 {
-            [*] --> CommunityConfig
-    CommunityConfig --> CommunityConfigHandler : (title,subtitle,services)
-        
-    --
-
-
-        AConfig --> AConfigHandler : (title,subtitle,services)
-        }
-        state Load1 {
-            [*] --> CommunityGet
-    CommunityGet --> CommunityGetHandler : [(name,count,lat,lon),...]
-        }
     
+    state LoadGuest1 {
+        [*] --> S1
+        S1 --> [abc] : guest
+
+    }
+    state LoadUser1 {
+       
+        [*] --> Authenticated
+        Authenticated --> xxx : user
+    }
  
-        Community --> Config : communities.json
-        Config --> Load 
-        Load --> Show 
-        Show --> End 
+    Adopter --> Config : adopter.json
+    Config --> Load : (title,subtitle,displayname,username,password,services)
+    Load --> End : owner,id
  
-        [*] --> Config1
-        Config1 --> Load1
-        Load1 --> Show1
-        Show1 --> [*]
+    [*] --> Config1 : adopter.json
+    Config1 --> Load1 : (title,subtitle,displayname,username,password,services)
+    Load1 --> [*] : token
 ```
 
 ```mermaid
