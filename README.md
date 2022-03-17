@@ -9,27 +9,99 @@ stateDiagram
 
  
     
+    state Config {
+        [*] --> A 
+    A --> B 
     
-    state LoadGuest1 {
-        [*] --> S1
-        S1 --> [abc] : guest
+    --
 
+
+    [*] --> C 
+    C --> D 
+    
+    [*] --> E 
+    E --> F 
     }
-    state LoadUser1 {
-       
-        [*] --> Authenticated
-        Authenticated --> xxx : user
+    
+    state Show {
+        Title --> Subtitle 
+    Subtitle --> CommunityList 
     }
  
-    Adopter --> Config : adopter.json
-    Config --> Load : (title,subtitle,displayname,username,password,services)
-    Load --> End : owner,id
+    [*] --> Config 
+    Config --> Load 
+    Load --> Show 
+    Show --> End 
  
-    [*] --> Config1 : adopter.json
-    Config1 --> LoadGuest1 
-    Config1 --> LoadUser1
-    LoadGuest1 --> [ShowA] : guestToken
-    LoadUser1 --> [ShowB] : userToken
+    [*] --> Config1 
+    Config1 --> Load1 
+    Load1 --> Show1 
+    Show1 --> End 
+
+Config1 --> Config1 : cc
+
+A --> A : a
+B --> B : b
+
+
+C --> C : c
+D --> D : d
+
+E --> E : e
+F --> F : f
+
+
+Title --> Title : edit
+Subtitle --> Subtitle : edit
+CommunityList --> CommunityList : edit
+    
+```
+
+
+```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram-v2
+    Adopter.vue
+
+    [*] --> Config : adopter.json
+    Config --> Load : guestToken
+    Load --> Show : (displayname, \nusername, \npassword)
+    Show --> RequestPost : create
+    RequestPost --> Show : (displayname, \nusername, \npassword)
+
+    Config --> Load1 : userToken
+    Load1 --> Show1 : (displayname,\nusername)
+
+    Show1 --> RequestPut : update 
+    RequestPut --> Show1 : (displayname, \nusername)
+
+    Show1 --> RequestDelete : delete
+    RequestDelete --> [*]
+
+    state Load1 {
+        [*] --> AdopterGet : userToken
+        
+        AdopterGet --> AdopterGetHandler : (owner,id)
+        AdopterGet --> [*] : fail
+    }
+    
+    state RequestPost {
+        [*] --> AdopterPost : (displayname, \nusername, \npassword)
+        AdopterPost --> AdopterPostHandler : (response) 
+        AdopterPost --> [*] : fail 
+    }
+
+   state RequestPut {
+        [*] --> AdopterPut : (displayname, \nusername)
+        AdopterPut --> AdopterPutHandler : (response)
+        AdopterPut --> [*] : fail 
+    }
+    
+    state RequestDelete {
+        [*] --> AdopterDelete : (owner,id)
+        AdopterDelete --> AdopterDeleteHandler : (response) 
+        AdopterDelete --> [*] : fail 
+    }
 ```
 
 ```mermaid
