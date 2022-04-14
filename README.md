@@ -16,7 +16,7 @@ stateDiagram
  
  
     A --> B : false
-    B --> [*] : a
+    B --> C : a
     C --> D
     D --> [*]
  
