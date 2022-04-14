@@ -3,19 +3,23 @@
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
 stateDiagram
  
-    state Load {
-        [*] --> CommunityGet
-        CommunityGet --> CommunityGetHandler : community_get
+
+    state B  {
+        
+        B1 --> [*] : b1
     }
-    state Show {
-        Title --> Subtitle
-        Subtitle --> CommunityList
+    state C  {
+       
+        C1 --> C2
+        C2 --> C3
     }
  
-    [*] --> [*] : isModalVisible=False
-    [*] --> Config : isModalVisible=True
-    Config --> Load : data
-    Load --> Show : open_modal
+ 
+    A --> B : false
+    B --> [*] : a
+    C --> D
+    D --> [*]
+ 
 ```
 ```mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
