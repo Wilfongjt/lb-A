@@ -4,22 +4,23 @@
 stateDiagram
  
 
-    state B  {
-        
-        B1 --> [*] : b1
+    state Load  {
+        [*] --> CommunityGet
+        CommunityGet --> CommunityGetHandler : [(name,count,lat,lon),...]
+        CommunityGetHandler --> [*]
     }
-    state C  {
-       
-        C1 --> C2
-        C2 --> C3
+    state Show  {
+        Title --> Subtitle
+        Subtitle --> CommunityList
     }
  
  
-    A --> B : false
-    B --> C : a
-    C --> D
-    D --> [*]
- 
+    [*] --> [*] : isModalVisible=False
+    [*] --> Config : isModalVisible=True
+    Config --> Load : (name,page,isModalVisible,community_get)
+    Load --> Show : open_modal
+    Show --> [*]
+    Show --> Show: isModalVisible=True
 ```
 ```mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
