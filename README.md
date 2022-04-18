@@ -4,23 +4,30 @@
 stateDiagram
  
 
-    state Load  {
-        [*] --> CommunityGet
-        CommunityGet --> CommunityGetHandler : [(name,count,lat,lon),...]
-        CommunityGetHandler --> [*]
-    }
-    state Show  {
-        Title --> Subtitle
-        Subtitle --> CommunityList
-    }
+ 
+    
+    [*] --> Terms_of_Use : /tou
+    Terms_of_Use --> [*]
+    Terms_of_Use --> Terms_of_Use
+    
+    [*] --> Opportunities : /opportunities
+    Opportunities --> [*]
+    Opportunities --> Opportunities
+    
+    [*] --> Sponsors : /sponsors
+    Sponsors --> [*]
+    Sponsors --> Sponsors
+    
+    [*] --> Stats : /stats
+    Stats --> [*]
+    Stats --> Stats
+    
+    [*] --> About : /about
+    About --> [*] 
+    About --> About
  
  
-    [*] --> [*] : isModalVisible=False
-    [*] --> Config : isModalVisible=True
-    Config --> Load : (name,page,isModalVisible,community_get)
-    Load --> Show : open_modal
-    Show --> [*]
-    Show --> Show: isModalVisible=True
+ 
 ```
 ```mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
@@ -32,6 +39,7 @@ stateDiagram
     }
     state Show {
         Title --> Subtitle 
+        
         Subtitle --> CommunityList 
     }
    
@@ -44,6 +52,7 @@ stateDiagram
     ShowError --> ShowError : (isModalViaible=true)
     Show --> [*] : (isModalVisible=false)
     Show --> Show : (isModalVisible=true)
+    Title --> Title : hi
     
 ```
 # Community Load
