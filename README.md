@@ -4,30 +4,27 @@
 stateDiagram
  
 
- 
-    
-    [*] --> Terms_of_Use : /tou
-    Terms_of_Use --> [*]
-    Terms_of_Use --> Terms_of_Use
-    
-    [*] --> Opportunities : /opportunities
-    Opportunities --> [*]
-    Opportunities --> Opportunities
-    
-    [*] --> Sponsors : /sponsors
-    Sponsors --> [*]
-    Sponsors --> Sponsors
-    
-    [*] --> Stats : /stats
-    Stats --> [*]
-    Stats --> Stats
-    
-    [*] --> About : /about
-    About --> [*] 
-    About --> About
+    state Load  {
+        [*] --> OpportunityGet
+        OpportunityGet --> OpportunityGetHandler : [(name),...]
+        OpportunityGetHandler --> [*]
+    }
+    state Show  {
+        Title --> Subtitle
+        Subtitle --> Description
+        Description --> OpportunityTitle
+        OpportunityTitle --> OpportunityList
+    }
  
  
+    [*] --> [*] : not(route=opportunities)
+    [*] --> Config : route=opportunities
+    Config --> Load : (title,subtitle,description,oppTitle,oppList,opportunity)
+    Load --> Show
+    Show --> [*] : not(route=opportunities)
  
+Show --> Show : route=opportunities
+
 ```
 ```mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
