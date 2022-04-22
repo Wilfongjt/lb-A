@@ -4,9 +4,20 @@
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
 stateDiagram
  
-    
+```
+
+# SignIn
+
+```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+ 
+    state Show {
+      SmallHeader --> Collect
+      Collect
+    }
     state Collect  {
-        SmallHeader --> Username
+        
         Username --> Password
         Password --> [*]
     }
@@ -19,9 +30,9 @@ stateDiagram
     [*] --> [*] : isModalVisible=False
     [*] --> Config : isModalVisible=True
     
-    Config --> Collect : signin=(title,subtitle,feedback)
+    Config --> Show : signin=(title,subtitle,feedback)
     
-    Collect --> [*] : isModalVisible=False
+    Show --> [*] : isModalVisible=False
     Authenticate --> [*] : authenticated
     Authenticate --> Collect : failed
     Collect --> Authenticate : (un, pw)
