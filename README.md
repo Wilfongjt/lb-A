@@ -1,3 +1,108 @@
+# SignIn
+
+```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+ 
+    
+    state Collect  {
+        SmallHeader --> Username
+        Username --> Password
+        Password --> [*]
+    }
+    state Authenticate {
+      [*] --> authenticateGetRequest
+      authenticateGetRequest --> authencateGetHandler
+      authencateGetHandler --> [*]
+    }
+ 
+    [*] --> [*] : isModalVisible=False
+    [*] --> Config : isModalVisible=True
+    
+    Config --> Collect : signin=(title,subtitle,feedback)
+    
+    Collect --> [*] : isModalVisible=False
+    Authenticate --> [*] : authenticated
+    Authenticate --> Collect : failed
+    Collect --> Authenticate : (un, pw)
+    
+    
+ 
+
+
+```
+
+# Header 
+```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+ 
+
+    state Show  {
+        BannerImage --> Title
+        Title --> Subtitle
+    }
+ 
+ 
+    [*] --> Config : route=*
+    Config --> Show : page=(bannerImage,title,subtitle)
+    Show --> [*]
+ 
+ 
+```
+# About
+```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+ 
+
+    state Load  {
+        [*] --> AboutGet
+        AboutGet --> AboutGetHandler : remote=[(id,title,description),...]
+        AboutGetHandler --> [*] : aboutList
+    }
+    state Show  {
+        Title --> Subtitle
+        Subtitle --> AboutList
+    }
+ 
+ 
+    [*] --> [*] : not(route=about)
+    [*] --> Config : route=/about
+    Config --> Load : page=(title,subtitle)
+    Load --> Show : page+aboutList
+    Show --> [*] : not(route=about)
+ 
+AboutList --> AboutList : aboutList
+ 
+```
+
+# Community
+```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+ 
+
+    state Load  {
+        [*] --> CommunityGet
+        CommunityGet --> CommunityGetHandler : remote=[(name,count,lat,lon),...]
+        CommunityGetHandler --> [*] : communityList
+    }
+    state Show  {
+        Title --> Subtitle
+        Subtitle --> Communities
+    }
+ 
+ 
+    [*] --> [*] : isModalVisible=False
+    [*] --> Config : isModalVisible=True
+    Config --> Load : page=(title,subtitle)
+    Load --> Show : page+communityList
+    Show --> [*] : isModalVisible=false
+ 
+Show --> Show : isModalVisible=true
+Communities --> Communities : communityList
+```
 # Footer
 ```mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
