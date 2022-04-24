@@ -3,7 +3,44 @@
 ```mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
 stateDiagram
+    [*] --> [*] : false
+    [*] --> Config : ok
+    Config --> Load : configData
+    Load --> LService : loadParms
+    LService --> Load : loadFail
+    Load --> Show : loadData
+    FService --> FHandler : responseData
+    Show --> FService : np
+    FHandler --> Show : success
+    FService --> Show : fail
+    Show --> [*] : close
+    LService --> LHandler : responseData
+    LHandler --> Load : loadData
+    LService
+    LHandler
+    FService
+    FHandler
+    xState
+    
+```
+
+# SignIn
+
+```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
  
+
+    
+   
+    [*] --> [*] : isModalVisible=false
+    [*] --> Config : isModalVisible=true
+    Config --> Show : signin=(title,subtitle,feedback)
+    Show --> [*] : isModalVisible=false
+ 
+    Show --> Authenticate : (nm, pw)
+    Authenticate --> Show : fail
+    Authenticate --> [*] : authenticated
 ```
 
 # SignIn
