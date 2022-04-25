@@ -3,25 +3,20 @@
 ```mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
 stateDiagram
-    [*] --> [*] : false
-    [*] --> Config : ok
-    Config --> Load : configData
-    Load --> LService : loadParms
-    LService --> Load : loadFail
-    Load --> Show : loadData
-    FService --> FHandler : responseData
-    Show --> FService : np
-    FHandler --> Show : success
-    FService --> Show : fail
-    Show --> [*] : close
-    LService --> LHandler : responseData
-    LHandler --> Load : loadData
-    LService
-    LHandler
-    FService
-    FHandler
-    xState
+
+    state Show  {
+        SignInRequest --> SignInHandler
+    }
     
+    [*] --> [*] : isModalVisible=false
+    [*] --> Config : isModalVisible=true
+    Config --> Show : page=(title,subtitle,feedback)
+    Show --> [*] : isModalVisible=false
+    state SignInHandler-Legend {
+      A --> B
+      B --> C
+      C --> D
+    }
 ```
 
 # SignIn
