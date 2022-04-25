@@ -12,10 +12,9 @@ stateDiagram
     [*] --> Config : isModalVisible=true
     Config --> Show : page=(title,subtitle,feedback)
     Show --> [*] : isModalVisible=false
-    state SignInHandler-Legend {
-      A --> B
-      B --> C
-      C --> D
+    state SignInHandler-Tasks {
+      direction LR
+      setAuthentication(token)
     }
 ```
 
