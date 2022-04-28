@@ -3,19 +3,22 @@
 ```mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
 stateDiagram
-
-    state Show  {
-        SignInRequest --> SignInHandler
-    }
-    
-    [*] --> [*] : isModalVisible=false
-    [*] --> Config : isModalVisible=true
-    Config --> Show : page=(title,subtitle,feedback)
-    Show --> [*] : isModalVisible=false
-    state SignInHandler-Tasks {
-      direction LR
-      setAuthentication(token)
-    }
+              state Load {
+                [*] --> FService
+FService --> FHandler
+FHandler --> [*]
+--
+[*] --> F1Service
+F1Service --> F1Handler
+F1Handler --> [*]
+                A
+            }       
+    [*] --> [*] : false
+    [*] --> Config : ok
+    Config --> Load
+    Load --> Show
+    Show --> Legend
+    Legend --> [*]
 ```
 
 # SignIn
