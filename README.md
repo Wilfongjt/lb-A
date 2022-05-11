@@ -1,42 +1,20 @@
 # SignIn
 
 ```mermaid
+
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
 stateDiagram
+ 
 
-            state Load {
-                A
-B
---
-FService --> FHandler
---
-[*] --> F1Service
-F1Service --> F1Handler
-F1Handler --> [*]
-            }    
-            
-            state Show {
-                SService --> SHandler
---
-S1Service --> S1Handler
---
-S2Service --> S2Handler
-            }    
-            
-            state Legend {
-                L1
-            }    
-            
-            state Cleanup {
-                "CleanupA"
-            }    
-            
-    [*] --> [*] : false
-    [*] --> Config : ok
-    Config --> Load : configData
-    Load --> Show : somedata
-    Cleanup --> [*]
-
+ 
+[*] --> [*] : isModalVisible=false
+[*] --> Config : isModalVisible=true
+Config --> Load : (name,page,remote,isModalVisible)
+Load --> Show : communityList
+Show --> Show : MoveMap
+Show --> Show : isModalVisible=true
+Show --> [*] : isModalVisible=false
+ 
 ```
 
 # SignIn
