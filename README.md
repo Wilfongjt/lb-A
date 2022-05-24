@@ -1,20 +1,31 @@
-# SignIn
+# Example
 
 ```mermaid
-
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
 stateDiagram
- 
-
- 
-[*] --> [*] : isModalVisible=false
-[*] --> Config : isModalVisible=true
-Config --> Load : (name,page,remote,isModalVisible)
-Load --> Show : communityList
-Show --> Show : MoveMap
-Show --> Show : isModalVisible=true
+    state Load {
+             
+        [*] --> CommunityGet
+        CommunityGet --> CommunityGetHandler : [(name,count,lat,lon),...]
+        CommunityGetHandler --> [*] : communityList
+     }    
+         
+    state Show {
+             
+        Title
+        --
+        Subtitle
+        --
+        Communities
+     }    
+         
+[*] --> [*] : isModalVisible=False
+[*] --> Config : isModalVisible=True
+Config --> Load : (title,subtitle)
+Load --> Show : (title,subtitle,communityList)
 Show --> [*] : isModalVisible=false
  
+Show --> Show : isModalVisible=true
 ```
 
 # SignIn
