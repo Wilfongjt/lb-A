@@ -20,12 +20,12 @@
 
 ```mermaid
 
+
 ```
 
 # SignIn
 
 ```mermaid
-
 ```
 
 # Header
@@ -62,7 +62,6 @@ Show --> [*] : not(/opportunities)
  
 Show --> Show : /opportunities
 Opportunities --> Opportunities : opportunityList
-
 ```
 
 # Nav
@@ -137,7 +136,6 @@ stateDiagram
         [*] --> Slack : is(/slack.com)
         Slack --> [*] : not(/slack.com)
         Slack --> Slack : is(/slack.com)
-
 ```
 
 # Community
@@ -161,13 +159,12 @@ stateDiagram
 [*] --> [*] : isModalVisible=False
 [*] --> Config : isModalVisible=True
 Config --> Load : (page(title, subtitle))
-Load --> Show : (page), (communityList)
+Load --> Show : ((page), (communityList))
 Show --> [*] : isModalVisible=false
  
 Show --> Show : isModalVisible=true
 CommunityLinks --> CommunityLinks : communityList
 CommunityLinks --> CommunityLinks : moveMap
-
 ```
 
 # About
@@ -197,6 +194,5 @@ Load --> Show : ((page), (aboutList))
 Show --> [*] : not(/about)
  
 Show --> Show : /about
-About --> About : aboutList
- 
+About --> About : aboutList 
 ```
