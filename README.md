@@ -2,7 +2,8 @@
 ```mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
 stateDiagram
-AAD --> API --> Data
+AAD --> API 
+API --> Data
 ```
 
 # Tou
