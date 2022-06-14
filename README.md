@@ -2,8 +2,20 @@
 ```mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
 stateDiagram
-AAD --> API 
-API --> Data
+
+App --> API
+API --> Service
+
+AAD --> AADApi 
+AADApi --> Data
+
+AAD --> DataWorldApi 
+DataWorldApi --> Drains
+
+AAD --> GoogleMaps
+GoogleMaps --> Map
+
+
 ```
 
 # Tou
@@ -23,6 +35,13 @@ API --> Data
 ```mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
 stateDiagram
+    state Load {
+             
+        [*] --> SponsorGet
+        SponsorGet --> SponsorGetHandler : (response[(id, title, description),...])
+        SponsorGetHandler --> [*] : (sponsorList[(id, title, description, website, source),...])
+     }    
+         
     state Show {
              
         [*] --> Title
@@ -30,12 +49,13 @@ stateDiagram
         Subtitle --> [*]
      }    
          
-[*] --> [*] : not(/sponsers)
-[*] --> Config : /sponsers
-Config --> Show : (title, subtitle)
-Show --> [*] : not(sponsors)
+[*] --> [*] : not(/sponsor)
+[*] --> Config : /sponsor
+Config --> Load : (title, subtitle)
+Load --> Show : ((page), (sponsorList))
+Show --> [*] : not(/sponsor)
  
-Show --> Show : /sponsers
+Show --> Show : /sponsor
 ```
 
 # SignOut
