@@ -1,3 +1,10 @@
+# System
+```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+AAD --> API --> Data
+```
+
 # Tou
 
 ```mermaid
@@ -13,25 +20,95 @@
 # Sponsors
 
 ```mermaid
-
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+    state Show {
+             
+        [*] --> Title
+        Title --> Subtitle
+        Subtitle --> [*]
+     }    
+         
+[*] --> [*] : not(/sponsers)
+[*] --> Config : /sponsers
+Config --> Show : (title, subtitle)
+Show --> [*] : not(sponsors)
+ 
+Show --> Show : /sponsers
 ```
 
 # SignOut
 
 ```mermaid
-
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+    state Show {
+             
+        [*] --> LogOut : token
+        LogOut --> [*] : not(authenticated(token))
+     }    
+         
+[*] --> [*] : isModalVisible=false
+[*] --> [*] : not(authenticated(token))
+[*] --> Config : authenticated(token)
+Config --> Show : token
+Show --> [*] : not(authenticated(token))
+ 
+Show --> Show : authenticated(token)
 
 ```
 
 # SignIn
 
 ```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+    state Show {
+             
+        Title --> Subtitle
+        Subtitle --> Username
+        Username --> Password
+        --
+        Feedback
+     }    
+         
+    state Authenticate {
+             
+        [*] --> SignInRequest : (username),(password)
+        SignInRequest --> SignInHandler : token
+        SignInHandler --> [*]
+     }    
+         
+[*] --> [*] : isModalVisible=false
+[*] --> [*] : authenticated(token)
+Config --> Show : (page(title, subtitle, feedback))
+Show --> [*] : isModalVisible=false
+Show --> Authenticate : (username, password)
+[*] --> Config : not(authenticated(token))
+Authenticate --> Show : not(authenticated(token)), feedback
+Authenticate --> [*] : authenticated(token)
+ 
+Show --> Show : isModalVisible=true
+Show --> Show : not(authenticated(token))
+Username --> Username : not(username)
+Password --> Password : not(password)
+
 ```
 
 # Header
 
 ```mermaid
-
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+    state Show {
+             
+        BannerImage --> Title
+        Title --> Subtitle
+     }    
+         
+[*] --> Config : /*
+Config --> Show : (page(bannerImage, title, subtitle))
+ 
 ```
 
 # Opportunities
