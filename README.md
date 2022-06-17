@@ -18,9 +18,98 @@ GoogleMaps --> Map
 
 ```
 
+# Adoption
+
+```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+    state Load {
+             
+        [*] --> LocationGetRequest
+        LocationGetRequest --> LocationGetHandler
+        LocationGetHandler --> GoogleMapGetRequest
+        GoogleMapGetRequest --> GoogelMapGetHandler
+        GoogelMapGetHandler --> [*]
+     }    
+         
+    state Show {
+             
+        [*] --> Map
+        Map --> [*]
+     }    
+         
+    state Adopt {
+             
+        [*] --> AdopteePostRequest : post
+        AdopteePostRequest --> AdopteePostHandler
+        AdopteePostHandler --> LoadMyAdoptees
+        LoadMyAdoptees --> AdopteePutRequest
+        AdopteePutRequest --> AdopteePutHandler
+        AdopteePutHandler --> [*]
+     }    
+         
+[*] --> [*] : not(/home)
+[*] --> Config : /home
+Config --> Load
+Load --> Show : xxx
+Show --> [*] : not(/home)
+Show --> Adopt : on(adopt)
+Adopt --> Show : status(pass,fail)
+ 
+Show --> Show : /home
+Map --> Map : adopt
+Map --> Map : orphan
+Map --> Map : rename
+
+
+```
+
+# Home
+```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+    state Show {
+             
+        Adoption
+     }    
+         
+[*] --> [*] : not(/home)
+[*] --> Show : /home
+Show --> [*] : not(/home)
+ 
+Show --> Show : /home
+Adoption --> Adoption : map
+```
+
 # Tou
 
 ```mermaid
+%%{init: {'securityLevel': 'loose', 'theme':'base'}}%%
+stateDiagram
+    state Load {
+             
+        [*] --> CommunityGetRequest
+        CommunityGetRequest --> CommunityGetHandler : (response[(dr_jurisdiction, count, lat, lon),...])
+        CommunityGetHandler --> TouGetRequest : (communityList[(name, count, lat, lon),...])
+        TouGetRequest --> TouGetHandler : (response[(active, created, form(i, p, w, doc_id), owner, pk, sk, tk, updated),...])
+        TouGetHandler --> [*] : (touList[(id, paragraph),...])
+     }    
+         
+    state Show {
+             
+        [*] --> TouDocument
+        TouDocument --> [*]
+     }    
+         
+[*] --> [*] : not(/tou)
+[*] --> Config : /tou
+Config --> Load
+Load --> Show : ((communityList), (touList))
+Show --> [*] : not(/tou)
+ 
+Show --> Show : /tou
+TouDocument --> TouDocument : touList
+TouDocument --> TouDocument : communityList
 
 ```
 
